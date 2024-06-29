@@ -5,7 +5,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
-import { getImages } from "./image-api";
+import { fetchPhotosByInput } from "./image-api";
 
 interface Image {
   id: string;
@@ -34,8 +34,8 @@ const App: FC = () => {
       try {
         setIsLoading(true);
         setIsError(false);
-        const data = await getImages(searchQuery, page);
-        setImages((prevState) => [...prevState, ...data]);
+        const data = await fetchPhotosByInput(searchQuery, page);
+        setImages((prevState) => [...prevState, ...data]); // Assuming data is an array of Image objects
       } catch (error) {
         setIsError(true);
       } finally {

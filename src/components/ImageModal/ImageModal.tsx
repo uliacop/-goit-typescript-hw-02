@@ -1,7 +1,6 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import css from "../ImageModal/ImageModal.module.css";
-
 const customStyles = {
   content: {
     top: "50%",
@@ -23,6 +22,15 @@ interface ImageModalProps {
 }
 
 const ImageModal: FC<ImageModalProps> = ({ imageUrl, isOpen, onClose }) => {
+  const prevIsOpen = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (isOpen && !prevIsOpen.current) {
+      Modal.setAppElement("#root");
+    }
+    prevIsOpen.current = isOpen;
+  }, [isOpen]);
+
   if (!imageUrl) return null;
 
   return (

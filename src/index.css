@@ -1,0 +1,16 @@
+header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgb(60, 60, 70);
+}
+
+button {
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: transparent;
+}
+input {
+  border: none;
+}

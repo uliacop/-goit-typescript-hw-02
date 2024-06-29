@@ -1,0 +1,7 @@
+.imgGallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  gap: 5px;
+  list-style: none;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
@@ -7,14 +7,23 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import { getImages } from "./image-api";
 
-export default function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+interface Image {
+  id: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+  alt_description: string;
+}
+
+const App: FC = () => {
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -37,7 +46,7 @@ export default function App() {
     fetchImages();
   }, [page, searchQuery]);
 
-  const handleSearch = (topic) => {
+  const handleSearch = (topic: string) => {
     setSearchQuery(topic);
     setPage(1);
     setImages([]);
@@ -47,7 +56,7 @@ export default function App() {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const openModal = (imageUrl) => {
+  const openModal = (imageUrl: string) => {
     setSelectedImage(imageUrl);
     setIsModalOpen(true);
   };
@@ -69,10 +78,12 @@ export default function App() {
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
       <ImageModal
-        imageUrl={selectedImage}
+        imageUrl={selectedImage ?? ""}
         isOpen={isModalOpen}
         onClose={closeModal}
       />
     </div>
   );
-}
+};
+
+export default App;

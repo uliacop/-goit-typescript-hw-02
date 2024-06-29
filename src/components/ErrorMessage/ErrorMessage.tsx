@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, FC } from "react";
 import toast from "react-hot-toast";
 
-const ErrorMessage = () => {
+const ErrorMessage: FC = () => {
   useEffect(() => {
     toast.error("Unfortunately! It doesn't work.");
   }, []);
